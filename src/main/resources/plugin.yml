@@ -1,0 +1,6 @@
+name: ADHDJobs
+version: '${project.version}'
+main: adhdmc.adhdjobs.ADHDJobs
+api-version: 1.19
+depend:
+  - CoreProtect
