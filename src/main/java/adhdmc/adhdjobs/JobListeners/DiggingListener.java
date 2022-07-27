@@ -3,8 +3,7 @@ package adhdmc.adhdjobs.JobListeners;
 import adhdmc.adhdjobs.ADHDJobs;
 import adhdmc.adhdjobs.MathHandling.LevelHandling;
 import com.destroystokyo.paper.MaterialTags;
-import net.coreprotect.CoreProtect;
-import net.coreprotect.CoreProtectAPI;
+import com.gestankbratwurst.playerblocktracker.PlayerBlockTracker;
 import org.bukkit.GameMode;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Tag;
@@ -73,37 +72,14 @@ public class DiggingListener implements Listener {
             player.sendMessage("digger job set to false, returning");
             return;
         }
-        if(blockLookUp(block)) return;
+        if(PlayerBlockTracker.isTracked(block)) {
+            player.sendMessage("THAT BLOCK HAS BEEN PLACED PLAYERBLOCKTRACKER");
+            return;
+        }
         LevelHandling.level(playerPDC, player,diggerLevel,diggerExperience);
         //TODO: Hook into vault for payout
         player.sendMessage("Paid X MONEY, ONCE I GET VAULT HOOKED UP");
 
-    }
-
-    private CoreProtectAPI getCoreProtect() {
-        Plugin plugin = ADHDJobs.instance.getServer().getPluginManager().getPlugin("CoreProtect");
-        if (!(plugin instanceof CoreProtect)) return null;
-        CoreProtectAPI CoreProtect = ((CoreProtect) plugin).getAPI();
-        if (!CoreProtect.isEnabled()) return null;
-        if (CoreProtect.APIVersion() < 9) return null;
-        return CoreProtect;
-    }
-
-    private boolean blockLookUp(Block block){
-        CoreProtectAPI coreProtect = getCoreProtect();
-        List<String[]> blockCPInfo = coreProtect.blockLookup(block, 5184000);
-        if (blockCPInfo != null){
-            for (String[] blockInfo : blockCPInfo) {
-                CoreProtectAPI.ParseResult parseResult = coreProtect.parseResult(blockInfo);
-                int actionId = parseResult.getActionId();
-                String userName = parseResult.getPlayer();
-                if (actionId == 1 && userName != null) {
-                    System.out.println("This block was placed, you can't get paid for it");
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }
 
