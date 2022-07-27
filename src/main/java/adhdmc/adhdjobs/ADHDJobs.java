@@ -18,9 +18,14 @@ public final class ADHDJobs extends JavaPlugin {
 
     public void onEnable() {
         instance = this;
+        if (getServer().getPluginManager().getPlugin("PlayerBlockTracker") != null){
         getServer().getPluginManager().registerEvents(new MiningListener(), this);
         getServer().getPluginManager().registerEvents(new DiggingListener(), this);
-
+        System.out.println("PLAYER BLOCK TRACKER FOUND, ENABLING EVVENTS");
+    } else {
+        System.out.println("NOT FOUND, DISABLING PLUGIN");
+        getServer().getPluginManager().disablePlugin(this);
+        }
     }
 
 
