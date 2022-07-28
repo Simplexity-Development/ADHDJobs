@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import java.util.ArrayList;
 
 public class BlockLists {
-    public static ArrayList<Material> trackThesePlacedBlocks;
+    public static ArrayList<Material> blacklistedPlacedBlocks;
+    public static ArrayList<Material> buildingBlacklist;
 
 }

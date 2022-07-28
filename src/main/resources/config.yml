@@ -1,0 +1,10 @@
+#ya
+mining:
+  payout-types:
+    - ORES
+    - COBBLESTONES
+    - TERRACOTTA
+    - SANDSTONES
+  placement-blacklist:
+    - DIAMOND_ORE
+
